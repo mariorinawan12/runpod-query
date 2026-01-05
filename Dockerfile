@@ -21,27 +21,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p /app/model
 
 # Download BGE-M3 and export to ONNX
-RUN python -c "
-from transformers import AutoModel, AutoTokenizer
-from optimum.onnxruntime import ORTModelForFeatureExtraction
-
-print('📥 Downloading BGE-M3...')
-model_name = 'BAAI/bge-m3'
-
-# Download tokenizer
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-tokenizer.save_pretrained('/app/model')
-
-# Export to ONNX using optimum
-print('🔄 Converting to ONNX...')
-ort_model = ORTModelForFeatureExtraction.from_pretrained(
-    model_name,
-    export=True,
-    provider='CPUExecutionProvider'
-)
-ort_model.save_pretrained('/app/model')
-
-print('✅ Model exported to ONNX!')
+RUN python -c "\
+from transformers import AutoModel, AutoTokenizer; \
+from optimum.onnxruntime import ORTModelForFeatureExtraction; \
+print('📥 Downloading BGE-M3...'); \
+model_name = 'BAAI/bge-m3'; \
+tokenizer = AutoTokenizer.from_pretrained(model_name); \
+tokenizer.save_pretrained('/app/model'); \
+print('🔄 Converting to ONNX...'); \
+ort_model = ORTModelForFeatureExtraction.from_pretrained(model_name, export=True, provider='CPUExecutionProvider'); \
+ort_model.save_pretrained('/app/model'); \
+print('✅ Model exported to ONNX!'); \
 "
 
 # Copy handler
