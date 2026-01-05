@@ -1,0 +1,18 @@
+# RUNPOD-QUERY: ONNX CPU Runtime
+# ================================
+
+# RunPod SDK
+runpod>=1.6.0
+
+# ONNX Runtime (CPU only - no CUDA!)
+onnxruntime>=1.16.0
+
+# Hugging Face for tokenizer + ONNX export
+transformers>=4.36.0
+optimum[onnxruntime]>=1.16.0
+
+# Tokenizers
+tokenizers>=0.15.0
+
+# Numpy
+numpy>=1.24.0
